@@ -1,9 +1,10 @@
-name: Build Fabric mod
+
+name: Build Vanity Gear
 
 on:
+  workflow_dispatch:
   push:
     branches: [main]
-  workflow_dispatch:
 
 jobs:
   build:
@@ -13,12 +14,10 @@ jobs:
 
       - uses: actions/setup-java@v4
         with:
-          java-version: '21'
           distribution: temurin
+          java-version: '21'
 
       - uses: gradle/actions/setup-gradle@v4
-        with:
-          gradle-version: '8.14'
 
       - name: Build mod
         run: gradle build
@@ -26,5 +25,6 @@ jobs:
       - name: Upload JAR
         uses: actions/upload-artifact@v4
         with:
-          name: vanity-gear-build
+          name: vanity-gear
           path: build/libs/*.jar
+          
